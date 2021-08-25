@@ -1,0 +1,7 @@
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\bin\Debug\Minesweeper.exe.config
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\bin\Debug\Minesweeper.exe
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\bin\Debug\Minesweeper.pdb
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.AssemblyReference.cache
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\obj\Debug\Minesweeper.exe
+D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\obj\Debug\Minesweeper.pdb
