@@ -9,13 +9,12 @@ namespace Minesweeper
 {
     class Board
     {
-        public int BombCount = 0;
-        public int BombLives = 0;
+        public int RemainingBombs = 0;
+        public int RemainingFlags = 0;
         public int BoardSize = 20;
-        public int MineCount = 10;
-        public int MarkersPlaced = 0;
-        public int Count = 0;
+        public bool FirstMovePlayed;
         public bool Game = true;
+
         public Board()
         {
             Console.SetWindowSize(41, 25);
@@ -33,24 +32,24 @@ namespace Minesweeper
                     if (random.NextDouble() < 0.12) 
                     {
                         newRow.Add(new Cell(9, i, j));
-                        BombCount += 1;
-                        BombLives += 1;
+                        RemainingBombs += 1;
                     }
                     else
                         newRow.Add(new Cell(0, i, j));
-
                 }
 
                 grid.Add(newRow);
             }
-            if (BombCount == 0)
+
+            if (RemainingBombs == 0)
             {
-                Random rnd = new Random();
-                var x = rnd.Next(1, BoardSize - 1);
-                var y = rnd.Next(1, BoardSize - 1);
+                var x = random.Next(1, BoardSize - 1);
+                var y = random.Next(1, BoardSize - 1);
+
                 grid[x][y].state = 9;
             }
-            var bombTotal = BombCount;
+
+            RemainingFlags = RemainingBombs;
             for (var i = 0; i < BoardSize; i++)
             {
 
@@ -102,12 +101,11 @@ namespace Minesweeper
                 {
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
-                    DeleteBombMarker(grid, x - 1, y - 1, bombTotal);
+                    DeleteBombMarker(grid, x - 1, y - 1);
                 }
             }
+            
             Console.ReadLine();
-
-            //-------------------------------------------------------------------------//
         }
 
 
@@ -165,7 +163,7 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            Console.WriteLine($"You win! There were {BombCount} bombs in this game.");
+            Console.WriteLine($"You win! There were {RemainingBombs} bombs in this game.");
 
             for (int i = 0; i < 5; i++)
             {
@@ -173,7 +171,6 @@ namespace Minesweeper
                 Thread.Sleep(200);
             }
             Console.ReadLine();
-            Environment.Exit(0);
             Game = false;
         }
         private void Lose(List<List<Cell>> grid)
@@ -189,28 +186,26 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            Console.WriteLine($"You have lost! There were {BombCount} bombs in this game.");
+            Console.WriteLine($"You have lost! There were {RemainingBombs} bombs in this game.");
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
             Console.ReadLine();
-            Environment.Exit(0);
             Game = false;
         }
 
-        private void DeleteBombMarker(List<List<Cell>> grid, int x, int y, int bombTotal)
+        private void DeleteBombMarker(List<List<Cell>> grid, int x, int y)
         {
-            if (BombLives <= bombTotal)
+            if (RemainingFlags <= RemainingBombs)
             {
                 if (grid[x][y].state == 9)
                 {
                     grid[x][y].isBomb = false;
-                    BombCount += 1;
+                    RemainingBombs += 1;
 
                 }
-                MarkersPlaced -= 1;
                 grid[x][y].selected = false;
                 grid[x][y].isBomb = false;
                 Console.Clear();
@@ -220,17 +215,16 @@ namespace Minesweeper
 
         private void SelectBombCell(List<List<Cell>> grid, int x, int y)
         {
-            if (BombLives > 0)
+            if (RemainingFlags > 0)
                 if (grid[x][y].state == 9)
                 {
                     grid[x][y].isBomb = true;
-                    BombCount -= 1;
-                    if (BombCount == 0)
+                    RemainingBombs -= 1;
+                    if (RemainingBombs == 0)
                     {
                         Win(grid);
                     }
                 }
-            MarkersPlaced += 1;
             grid[x][y].selected = true;
             Console.Clear();
             PrintGrid(grid);
@@ -245,7 +239,7 @@ namespace Minesweeper
             var temp = grid[x][y].state;
             if (temp == 9)
             {
-                if (Count == 0)
+                if (FirstMovePlayed)
                 {
                     while (found == false)
                     {
@@ -276,33 +270,35 @@ namespace Minesweeper
                 SetCells0(x, y, play, grid);
                 Console.Clear();
                 PrintGrid(grid);
-                Count += 1;
+
+                FirstMovePlayed = true;
             }
         }
         private void PrintGrid(List<List<Cell>> grid)
         {
             Console.WriteLine(PrintCoordinatesXAxis(BoardSize));
-            Count = 0;
+            var count = 0;
+
             foreach (var item in grid)
             {
                 string message;
-                if (Count < 9)
+                if (count < 9)
                 {
                     message = PrintList(item);
-                    Count += 1;
-                    message = $"{Count}  {message}";
+                    count += 1;
+                    message = $"{count}  {message}";
                     Console.WriteLine(message);
                 }
                 else
                 {
                     message = PrintList(item);
-                    Count += 1;
-                    message = $"{Count} {message}";
+                    count += 1;
+                    message = $"{count} {message}";
                     Console.WriteLine(message);
                 }
 
             }
-            Count = 1;
+            count = 1;
         }
         private void SetCells0(int x, int y, List<Cell> neighbours, List<List<Cell>> grid)
         {
@@ -415,27 +411,27 @@ namespace Minesweeper
         private void PrintGridEndScreen(List<List<Cell>> grid)
         {
             Console.WriteLine(PrintCoordinatesXAxis(BoardSize));
-            Count = 0;
+            var count = 0;
             foreach (var item in grid)
             {
                 string message;
-                if (Count < 9)
+                if (count < 9)
                 {
                     message = PrintListEndScreen(item);
-                    Count += 1;
-                    message = $"{Count}  {message}";
+                    count += 1;
+                    message = $"{count}  {message}";
                     Console.WriteLine(message);
                 }
                 else
                 {
                     message = PrintListEndScreen(item);
-                    Count += 1;
-                    message = $"{Count} {message}";
+                    count += 1;
+                    message = $"{count} {message}";
                     Console.WriteLine(message);
                 }
 
             }
-            Count = 1;
+            count = 1;
         }
         private string PrintListEndScreen(List<Cell> items)
         {
