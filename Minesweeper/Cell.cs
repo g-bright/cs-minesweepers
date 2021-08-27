@@ -12,15 +12,12 @@ namespace Minesweeper
         public bool displayed;
         public bool isBomb;
         public bool selected;
-        public bool isYAxis;
-        
 
         public string displayValue
         {
             get
             {
-                if (isYAxis == true)
-                    return state.ToString();
+                
                 if (selected == true)
                     return "@";
                 if (!displayed)

@@ -11,3 +11,4 @@ D:\C# Projects\FinalMinesweeperVersion\Minesweeper\bin\Debug\Minesweeper.pdb
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.exe
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.pdb
+D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.csproj.AssemblyReference.cache

@@ -12,7 +12,7 @@ namespace Minesweeper
         public int RemainingBombs = 0;
         public int RemainingFlags = 0;
         public int BoardSize = 20;
-        public bool FirstMovePlayed = true;
+        public bool FirstMovePlayed = false;
         public bool Game = true;
 
         public Board()
@@ -29,7 +29,7 @@ namespace Minesweeper
 
                 for (var j = 0; j < BoardSize; j++)
                 {
-                    if (random.NextDouble() < 0.15)
+                    if (random.NextDouble() < 0.95)
                     {
                         newRow.Add(new Cell(9, i, j));
                         RemainingBombs += 1;
@@ -248,7 +248,7 @@ namespace Minesweeper
             var temp = grid[x][y].state;
             if (temp == 9)
             {
-                if (FirstMovePlayed == true)
+                if (FirstMovePlayed == false)
                 {
                     while (found == false)
                     {
@@ -264,7 +264,7 @@ namespace Minesweeper
                     }
                     SetBoardNeighbours(grid);
                     SelectCell(x, y, grid);
-                    FirstMovePlayed = false;
+                    FirstMovePlayed = true;
                 }
                 else
                     Lose(grid);
@@ -287,6 +287,7 @@ namespace Minesweeper
 
                 FirstMovePlayed = true;
             }
+            FirstMovePlayed = true;
         }
         private void PrintGrid(List<List<Cell>> grid)
         {
@@ -328,7 +329,7 @@ namespace Minesweeper
             {
                 if (!neighbour.displayed)
                 {
-                    var neighbours2 = CellNeighbours(neighbour.x, neighbour.y, grid, false);
+                    var neighbours2 = CellNeighbours(neighbour.x, neighbour.y, grid, true);
                     SetCells0(neighbour.x, neighbour.y, neighbours2, grid);
                 }
             }
