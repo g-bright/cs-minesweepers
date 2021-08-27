@@ -12,12 +12,13 @@ namespace Minesweeper
         public bool displayed;
         public bool isBomb;
         public bool selected;
-
+        public int x;
+        public int y;
+        public int bombCountNear;
         public string displayValue
         {
             get
             {
-                
                 if (selected == true)
                     return "@";
                 if (!displayed)
@@ -32,9 +33,6 @@ namespace Minesweeper
             }
             
         }
-        public int x;
-        public int y;
-        public int bombCountNear;
         public Cell(int initialValue, int xCoord, int yCoord)
         {
             bombCountNear = 0;

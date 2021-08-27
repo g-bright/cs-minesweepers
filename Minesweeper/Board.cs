@@ -17,6 +17,7 @@ namespace Minesweeper
 
         public Board()
         {
+            Console.Title = "Minesweeper";
             Console.SetWindowSize(41, 25);
             Console.SetBufferSize(41, 25);
             var grid = new List<List<Cell>>();
@@ -55,8 +56,6 @@ namespace Minesweeper
 
             Console.SetWindowSize((BoardSize * 3) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             Console.SetBufferSize((BoardSize * 3) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-
-            Console.Title = "Minesweeper";
             Console.Clear();
 
             PrintGrid(grid);
@@ -68,7 +67,6 @@ namespace Minesweeper
                 Console.Clear();
 
                 PrintGrid(grid);
-
 
                 if (selection.ToLower() == "c")
                 {
@@ -99,7 +97,6 @@ namespace Minesweeper
         {
             for (var i = 0; i < BoardSize; i++)
             {
-
                 for (var j = 0; j < BoardSize; j++)
                 {
                     if (grid[i][j].state != 9)
@@ -115,10 +112,6 @@ namespace Minesweeper
         }
         private string PrintList(List<Cell> items)
         {
-
-            //Console.SetWindowSize(235, 69);
-            //Console.SetBufferSize(235, 69);
-            Console.Title = "Minesweeper";
             var message = (string.Join("  ", items.Select(n => n.displayValue.ToString())));
             Console.WriteLine("");
             return message;
@@ -208,7 +201,6 @@ namespace Minesweeper
                 {
                     grid[x][y].isBomb = false;
                     RemainingBombs += 1;
-
                 }
                 RemainingFlags += 1;
                 grid[x][y].selected = false;
@@ -222,7 +214,6 @@ namespace Minesweeper
         {
             if (RemainingFlags > 0 && RemainingBombs > 0)
             {
-
                 if (grid[x][y].state == 9)
                 {
                     grid[x][y].isBomb = true;
@@ -284,7 +275,6 @@ namespace Minesweeper
                 SetCells0(x, y, play, grid);
                 Console.Clear();
                 PrintGrid(grid);
-
                 FirstMovePlayed = true;
             }
             FirstMovePlayed = true;
@@ -455,7 +445,6 @@ namespace Minesweeper
                 item.displayed = true;
             }
 
-            Console.Title = "Minesweeper";
             var message = (string.Join("  ", items.Select(n => n.displayValue.ToString())));
             Console.WriteLine("");
             return message;
