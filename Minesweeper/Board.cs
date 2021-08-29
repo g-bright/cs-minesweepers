@@ -23,7 +23,23 @@ namespace Minesweeper
             var grid = new List<List<Cell>>();
             var random = new Random();
             Console.Write("Enter board size: (min 4, max 30)");
-            BoardSize = int.Parse(Console.ReadLine());
+
+            string value = Console.ReadLine();
+            bool isValidNumber = int.TryParse(value, out _);
+            int number = isValidNumber ? Convert.ToInt32(value) : 0;
+
+            if (!isValidNumber)
+            {
+                Console.Write("Inform a valid positive number.");
+                return;
+            }
+            else if (isValidNumber && (number < 4 || number > 30))
+            {
+                Console.Write("Number has to be between 4 and 30.");
+                return;
+            }
+
+            BoardSize = number;
             for (var i = 0; i < BoardSize; i++)
             {
                 var newRow = new List<Cell>();
@@ -73,12 +89,25 @@ namespace Minesweeper
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
 
+                    if (y == 0 || x == 0)
+                    {
+                        Console.Write("Inform a valid positive number.");
+                        return;
+                    }
+
                     SelectCell(x - 1, y - 1, grid);
                 }
                 else if (selection.ToLower() == "b")
                 {
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
+
+                    if (y == 0 || x == 0)
+                    {
+                        Console.Write("Inform a valid positive number.");
+                        return;
+                    }
+
                     SelectBombCell(grid, x - 1, y - 1);
 
                 }
@@ -86,6 +115,13 @@ namespace Minesweeper
                 {
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
+
+                    if (y == 0 || x == 0)
+                    {
+                        Console.Write("Inform a valid positive number.");
+                        return;
+                    }
+
                     DeleteBombMarker(grid, x - 1, y - 1);
                 }
             }
@@ -119,10 +155,17 @@ namespace Minesweeper
         private int GetCoordinate(List<List<Cell>> grid, string xORy)
         {
             Console.WriteLine($"Enter {xORy} coordinate: ");
-            var input = int.Parse(Console.ReadLine());
+
+            string value = Console.ReadLine();
+            bool isValidNumber = int.TryParse(value, out _);
+            int number = isValidNumber ? Convert.ToInt32(value) : 0;
+
+            if (!isValidNumber)
+                return 0;
+
             Console.Clear();
             PrintGrid(grid);
-            return input;
+            return number;
         }
         private string PrintCoordinatesXAxis(int length)
         {
