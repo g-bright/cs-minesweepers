@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Minesweeper
 {
@@ -31,7 +30,7 @@ namespace Minesweeper
             var grid = new List<List<Cell>>();
             var random = new Random();
             Difficulty:
-            Console.WriteLine("Choose a difficulty: (Easy, Medium, Hard or Impossible");
+            Console.WriteLine("Choose a difficulty: (Easy, Medium, Hard or Impossible)");
             var difficultyInput = Console.ReadLine();
             double difficulty;
             if (difficultyInput.ToLower() == "easy")
@@ -332,6 +331,10 @@ namespace Minesweeper
         {
             if (RemainingFlags > 0 && RemainingBombs > 0)
             {
+                if(grid[x][y].displayed == true)
+                {
+                    goto Jump;
+                }
                 if (grid[x][y].state == 9)
                 {
                     grid[x][y].isBomb = true;
@@ -346,6 +349,7 @@ namespace Minesweeper
                 {
                     Win(grid);
                 }
+            Jump:;
             }
 
         }
@@ -431,6 +435,12 @@ namespace Minesweeper
 
             if (me.state != 9)
                 me.displayed = true;
+
+            if (me.selected == true)
+            {
+                me.selected = false;
+                RemainingFlags += 1;
+            }
 
             if (me.state > 0)
                 return;
