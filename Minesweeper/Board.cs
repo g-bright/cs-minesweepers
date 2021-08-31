@@ -46,7 +46,7 @@ namespace Minesweeper
 
                 for (var j = 0; j < BoardSize; j++)
                 {
-                    if (random.NextDouble() < 0.95)
+                    if (random.NextDouble() < 0.12)
                     {
                         newRow.Add(new Cell(9, i, j));
                         RemainingBombs += 1;
