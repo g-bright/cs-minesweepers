@@ -8,7 +8,6 @@ D:\C# Projects\Minesweeper attempt2\Minesweeper\Minesweeper\obj\Debug\Minesweepe
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\bin\Debug\Minesweeper.exe.config
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\bin\Debug\Minesweeper.exe
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\bin\Debug\Minesweeper.pdb
-D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.csproj.AssemblyReference.cache
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.csproj.CoreCompileInputs.cache
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.exe
 D:\C# Projects\FinalMinesweeperVersion\Minesweeper\obj\Debug\Minesweeper.pdb

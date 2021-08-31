@@ -27,7 +27,8 @@ namespace Minesweeper
                     return "*";
                 if (state == 10)
                     return ("#");
-               
+                if (state == 0)
+                    return (" ");
                 else
                     return state.ToString();
             }
