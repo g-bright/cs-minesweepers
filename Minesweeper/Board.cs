@@ -49,6 +49,10 @@ namespace Minesweeper
             {
                 difficulty = 0.32;
             }
+            else if (difficultyInput.ToLower() == "insane")
+            {
+                difficulty = 0.5;
+            }
             else
             {
                 Console.WriteLine("Please enter a valid difficulty");
@@ -79,7 +83,6 @@ namespace Minesweeper
                 goto Retry;
             }
             
-
             BoardSize = number;
             for (var i = 0; i < BoardSize; i++)
             {
@@ -586,7 +589,6 @@ namespace Minesweeper
         private void UpdateGameTitle()
         {
             Console.Title = $"Minesweeper - {DifficultyInputGlobal} - Flags remaining: {RemainingFlags}";
-
         }
     }
 }
