@@ -11,18 +11,57 @@ namespace Minesweeper
     {
         public int RemainingBombs = 0;
         public int RemainingFlags = 0;
-        public int BoardSize = 20;
+        public int BoardSize;
+        public int Bombs;
         public bool FirstMovePlayed = false;
         public bool Game = true;
-
+        public string DifficultyInputGlobal;
         public Board()
         {
+            NewBoard:
+            Game = true;
+            RemainingBombs = 0;
+            RemainingFlags = 0;
+            FirstMovePlayed = false;
+            
+            Console.Clear();
             Console.Title = "Minesweeper";
             Console.SetWindowSize(41, 25);
             Console.SetBufferSize(41, 25);
             var grid = new List<List<Cell>>();
             var random = new Random();
+            Difficulty:
+            Console.WriteLine("Choose a difficulty: (Easy, Medium, Hard or Impossible");
+            var difficultyInput = Console.ReadLine();
+            double difficulty;
+            if (difficultyInput.ToLower() == "easy")
+            {
+                difficulty = 0.12;
+            }
+            else if (difficultyInput.ToLower() == "medium")
+            {
+                difficulty = 0.17;
+            }
+            else if (difficultyInput.ToLower() == "hard")
+            {
+                difficulty = 0.22;
+            }
+            else if (difficultyInput.ToLower() == "impossible")
+            {
+                difficulty = 0.32;
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid difficulty");
+                Thread.Sleep(2500);
+                Console.Clear();
+                goto Difficulty;
+            }
+            DifficultyInputGlobal = difficultyInput.ToUpper();
+        Retry:
+            Console.Clear();
             Console.Write("Enter board size: (min 4, max 30)");
+            Console.OutputEncoding = Encoding.UTF8;
 
             string value = Console.ReadLine();
             bool isValidNumber = int.TryParse(value, out _);
@@ -30,14 +69,17 @@ namespace Minesweeper
 
             if (!isValidNumber)
             {
-                Console.Write("Inform a valid positive number.");
-                return;
+                Console.Write("Please enter a valid board size");
+                Thread.Sleep(2000);
+                goto Retry;
             }
             else if (isValidNumber && (number < 4 || number > 30))
             {
-                Console.Write("Number has to be between 4 and 30.");
-                return;
+                Console.Write("The number has to be between 4 and 30");
+                Thread.Sleep(2000);
+                goto Retry;
             }
+            
 
             BoardSize = number;
             for (var i = 0; i < BoardSize; i++)
@@ -46,7 +88,7 @@ namespace Minesweeper
 
                 for (var j = 0; j < BoardSize; j++)
                 {
-                    if (random.NextDouble() < 0.12)
+                    if (random.NextDouble() < difficulty)
                     {
                         newRow.Add(new Cell(9, i, j));
                         RemainingBombs += 1;
@@ -63,23 +105,32 @@ namespace Minesweeper
                 var x = random.Next(1, BoardSize - 1);
                 var y = random.Next(1, BoardSize - 1);
 
+                RemainingBombs = 1;
                 grid[x][y].state = 9;
             }
-
+            Bombs = RemainingBombs;
             RemainingFlags = RemainingBombs;
-
+            UpdateGameTitle();
             SetBoardNeighbours(grid);
-
-            Console.SetWindowSize((BoardSize * 3) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-            Console.SetBufferSize((BoardSize * 3) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            if (BoardSize < 6)
+            {
+                Console.SetWindowSize(48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            }
+            else
+            {
+                Console.SetWindowSize((BoardSize * 7) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize((BoardSize * 7) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            }
             Console.Clear();
 
             PrintGrid(grid);
-
+            
             while (Game == true)
             {
                 Console.WriteLine("Choose C for cell, B for bomb, -B to delete");
                 var selection = Console.ReadLine();
+                Loop:
                 Console.Clear();
 
                 PrintGrid(grid);
@@ -89,10 +140,11 @@ namespace Minesweeper
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
 
-                    if (y == 0 || x == 0)
+                    if (y == 0 || x == 0 || y > BoardSize || x > BoardSize)
                     {
-                        Console.Write("Inform a valid positive number.");
-                        return;
+                        Console.Write("Please enter valid coordinates");
+                        Thread.Sleep(2000);
+                        goto Loop;
                     }
 
                     SelectCell(x - 1, y - 1, grid);
@@ -102,31 +154,51 @@ namespace Minesweeper
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
 
-                    if (y == 0 || x == 0)
+                    if (y == 0 || x == 0 || y > BoardSize || x > BoardSize)
                     {
-                        Console.Write("Inform a valid positive number.");
-                        return;
+                        Console.Write("Please enter valid coordinates");
+                        Thread.Sleep(2000);
+                        goto Loop;
                     }
 
                     SelectBombCell(grid, x - 1, y - 1);
 
                 }
                 else if (selection == "-b" || selection == "-B")
+
                 {
                     var y = GetCoordinate(grid, "x");
                     var x = GetCoordinate(grid, "y");
 
-                    if (y == 0 || x == 0)
+                    if (y == 0 || x == 0 || y > BoardSize || x > BoardSize)
                     {
-                        Console.Write("Inform a valid positive number.");
-                        return;
+                        Console.Write("Please enter valid coordinates");
+                        Thread.Sleep(2000);
+                        goto Loop;
                     }
 
                     DeleteBombMarker(grid, x - 1, y - 1);
                 }
             }
+            Thread.Sleep(5000);
+        EndScreen:
+            Console.WriteLine("Type 'new' to play again, or 'exit' to stop playing");
+            Console.WriteLine("");
+            var input = Console.ReadLine();
+            if (input.ToLower() == "new")
+            {
+                goto NewBoard;
+            }
+            else if (input.ToLower() == "exit")
+            {
+                Environment.Exit(0);
 
-            Console.ReadLine();
+            }
+            else
+            {
+                Console.Clear();
+                goto EndScreen;
+            }
         }
 
         private void SetBoardNeighbours(List<List<Cell>> grid)
@@ -148,6 +220,7 @@ namespace Minesweeper
         }
         private string PrintList(List<Cell> items)
         {
+            UpdateGameTitle();
             var message = (string.Join("  ", items.Select(n => n.displayValue.ToString())));
             Console.WriteLine("");
             return message;
@@ -192,6 +265,7 @@ namespace Minesweeper
         }
         private void Win(List<List<Cell>> grid)
         {
+            UpdateGameTitle();
             Console.Beep();
             Console.Beep();
             Console.Beep();
@@ -203,18 +277,19 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            Console.WriteLine($"You win! There were {RemainingBombs} bombs in this game.");
+            Console.WriteLine($"You win! There were {Bombs} bombs in this game.");
 
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            Console.ReadLine();
+            
             Game = false;
         }
         private void Lose(List<List<Cell>> grid)
         {
+            UpdateGameTitle();
             Console.Beep();
             Console.Beep();
             Console.Beep();
@@ -232,13 +307,13 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            Console.ReadLine();
+            
             Game = false;
         }
 
         private void DeleteBombMarker(List<List<Cell>> grid, int x, int y)
         {
-            if (RemainingFlags <= RemainingBombs)
+            if (RemainingFlags < RemainingBombs)
             {
                 if (grid[x][y].state == 9)
                 {
@@ -261,15 +336,16 @@ namespace Minesweeper
                 {
                     grid[x][y].isBomb = true;
                     RemainingBombs -= 1;
-                    if (RemainingBombs == 0)
-                    {
-                        Win(grid);
-                    }
+                    
                 }
                 RemainingFlags -= 1;
                 grid[x][y].selected = true;
                 Console.Clear();
                 PrintGrid(grid);
+                if (RemainingBombs == 0)
+                {
+                    Win(grid);
+                }
             }
 
         }
@@ -314,7 +390,7 @@ namespace Minesweeper
                 grid[x][y].displayed = false;
                 Console.Clear();
                 PrintGrid(grid);
-                var play = CellNeighbours(x, y, grid, false);
+                var play = CellNeighbours(x, y, grid, true);
                 SetCells0(x, y, play, grid);
                 Console.Clear();
                 PrintGrid(grid);
@@ -324,6 +400,7 @@ namespace Minesweeper
         }
         private void PrintGrid(List<List<Cell>> grid)
         {
+            UpdateGameTitle();
             Console.WriteLine(PrintCoordinatesXAxis(BoardSize));
             var count = 0;
 
@@ -462,6 +539,10 @@ namespace Minesweeper
             var count = 0;
             foreach (var item in grid)
             {
+                foreach (var cell in item)
+                {
+                    cell.selected = false;
+                }
                 string message;
                 if (count < 9)
                 {
@@ -491,6 +572,11 @@ namespace Minesweeper
             var message = (string.Join("  ", items.Select(n => n.displayValue.ToString())));
             Console.WriteLine("");
             return message;
+        }
+        private void UpdateGameTitle()
+        {
+            Console.Title = $"Minesweeper - {DifficultyInputGlobal} - Flags remaining: {RemainingFlags}";
+
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Minesweeper
     {
         static void Main(string[] args)
         {
+            
             var board = new Board();
             Console.ReadLine();
         }

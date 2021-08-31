@@ -24,11 +24,11 @@ namespace Minesweeper
                 if (!displayed)
                     return "?";
                 if (state == 9)
-                    return "*";
+                    return "\u0E3F";
                 if (state == 10)
                     return ("#");
                 if (state == 0)
-                    return (" ");
+                    return " ";
                 else
                     return state.ToString();
             }
