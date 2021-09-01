@@ -322,7 +322,7 @@ namespace Minesweeper
             {
                 if (grid[x][y].state < 9)
                 {
-
+                    goto End;
                 }
                 if (grid[x][y].state == 9)
                 {
@@ -334,6 +334,7 @@ namespace Minesweeper
                 grid[x][y].isBomb = false;
                 Console.Clear();
                 PrintGrid(grid);
+            End:;
             }
         }
 
