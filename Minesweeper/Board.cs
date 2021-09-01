@@ -13,23 +13,25 @@ namespace Minesweeper
         public int BoardSize;
         public int Bombs;
         public bool FirstMovePlayed = false;
+        public bool FirstMoveArea = false;
         public bool Game = true;
         public string DifficultyInputGlobal;
         public Board()
         {
-            NewBoard:
+        NewBoard:
             Game = true;
             RemainingBombs = 0;
             RemainingFlags = 0;
             FirstMovePlayed = false;
-            
+            FirstMoveArea = false;
+
             Console.Clear();
             Console.Title = "Minesweeper";
             Console.SetWindowSize(41, 25);
             Console.SetBufferSize(41, 25);
             var grid = new List<List<Cell>>();
             var random = new Random();
-            Difficulty:
+        Difficulty:
             Console.WriteLine("Choose a difficulty: (Easy, Medium, Hard or Impossible)");
             var difficultyInput = Console.ReadLine();
             double difficulty;
@@ -49,9 +51,10 @@ namespace Minesweeper
             {
                 difficulty = 0.32;
             }
-            else if (difficultyInput.ToLower() == "insane")
+            else if (difficultyInput.ToLower() == "debug")
             {
-                difficulty = 0.5;
+                Console.WriteLine("Enter difficulty value (0 -> 1)");
+                difficulty = Double.Parse(Console.ReadLine());
             }
             else
             {
@@ -82,7 +85,7 @@ namespace Minesweeper
                 Thread.Sleep(2000);
                 goto Retry;
             }
-            
+
             BoardSize = number;
             for (var i = 0; i < BoardSize; i++)
             {
@@ -127,12 +130,12 @@ namespace Minesweeper
             Console.Clear();
 
             PrintGrid(grid);
-            
+
             while (Game == true)
             {
                 Console.WriteLine("Choose C for cell, B for bomb, -B to delete");
                 var selection = Console.ReadLine();
-                Loop:
+            Loop:
                 Console.Clear();
 
                 PrintGrid(grid);
@@ -286,7 +289,7 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            
+
             Game = false;
         }
         private void Lose(List<List<Cell>> grid)
@@ -309,14 +312,18 @@ namespace Minesweeper
                 Console.WriteLine("");
                 Thread.Sleep(200);
             }
-            
+
             Game = false;
         }
 
         private void DeleteBombMarker(List<List<Cell>> grid, int x, int y)
         {
-            if (RemainingFlags < RemainingBombs)
+            if (RemainingFlags <= RemainingBombs)
             {
+                if (grid[x][y].state < 9)
+                {
+
+                }
                 if (grid[x][y].state == 9)
                 {
                     grid[x][y].isBomb = false;
@@ -334,7 +341,7 @@ namespace Minesweeper
         {
             if (RemainingFlags > 0 && RemainingBombs > 0)
             {
-                if(grid[x][y].displayed == true)
+                if (grid[x][y].displayed == true)
                 {
                     goto Jump;
                 }
@@ -342,7 +349,7 @@ namespace Minesweeper
                 {
                     grid[x][y].isBomb = true;
                     RemainingBombs -= 1;
-                    
+
                 }
                 RemainingFlags -= 1;
                 grid[x][y].selected = true;
@@ -398,10 +405,24 @@ namespace Minesweeper
                 Console.Clear();
                 PrintGrid(grid);
                 var play = CellNeighbours(x, y, grid, true);
+                if (FirstMoveArea == false)
+                {
+                    foreach (var cell in play)
+                    {
+                        if (cell.state == 9)
+                        {
+                            cell.state = 0;
+                        }
+                    }
+                    SetBoardNeighbours(grid);
+                    UpdateGameTitle();
+
+                }
                 SetCells0(x, y, play, grid);
                 Console.Clear();
                 PrintGrid(grid);
                 FirstMovePlayed = true;
+                FirstMoveArea = true;
             }
             FirstMovePlayed = true;
         }

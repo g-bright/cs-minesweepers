@@ -32,7 +32,7 @@ namespace Minesweeper
                 else
                     return state.ToString();
             }
-            
+
         }
         public Cell(int initialValue, int xCoord, int yCoord)
         {
