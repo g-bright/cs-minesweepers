@@ -413,6 +413,8 @@ namespace Minesweeper
                         if (cell.state == 9)
                         {
                             cell.state = 0;
+                            RemainingBombs -= 1;
+                            RemainingFlags -= 1;
                         }
                     }
                     SetBoardNeighbours(grid);
