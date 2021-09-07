@@ -120,85 +120,95 @@ namespace Minesweeper
 
             int TitleSize = 46;
 
-            if (BoardSize >= 4 && BoardSize < 10)
+            if (BoardSize >= 4 && BoardSize < 7)
             {
                 Console.SetWindowSize(TitleSize, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
                 Console.SetBufferSize(TitleSize, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            }
+            else if(BoardSize >= 7 && BoardSize < 10)
+            {
+                Console.SetWindowSize(TitleSize+2, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize+2, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 10 && BoardSize < 16)
             {
                 Console.SetWindowSize(TitleSize + 3, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
                 Console.SetBufferSize(TitleSize + 3, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
-            else if (BoardSize >= 17 && BoardSize < 18)
+            else if (BoardSize >= 16 && BoardSize < 17)
             {
-                Console.SetWindowSize(TitleSize + 7, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 7, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 8, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 8, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            }
+            else if (BoardSize == 17)
+            {
+                Console.SetWindowSize(TitleSize + 9, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 9, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 18 && BoardSize < 19)
-            {
-                Console.SetWindowSize(TitleSize + 10, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 10, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-            }
-            else if (BoardSize >= 19 && BoardSize < 20)
             {
                 Console.SetWindowSize(TitleSize + 13, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
                 Console.SetBufferSize(TitleSize + 13, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
+            else if (BoardSize >= 19 && BoardSize < 20)
+            {
+                Console.SetWindowSize(TitleSize + 15, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 15, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+            }
             else if (BoardSize >= 20 && BoardSize < 21)
             {
-                Console.SetWindowSize(TitleSize + 16, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 16, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 18, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 18, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 21 && BoardSize < 22)
             {
-                Console.SetWindowSize(TitleSize + 19, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 19, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 21, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 21, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 22 && BoardSize < 23)
             {
-                Console.SetWindowSize(TitleSize + 22, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 22, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 24, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 24, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 23 && BoardSize < 24)
             {
-                Console.SetWindowSize(TitleSize + 25, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 25, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 27, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 27, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 24 && BoardSize < 25)
             {
-                Console.SetWindowSize(TitleSize + 28, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 28, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 30, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 30, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 25 && BoardSize < 26)
             {
-                Console.SetWindowSize(TitleSize + 31, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 31, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 33, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 33, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 26 && BoardSize < 27)
             {
-                Console.SetWindowSize(TitleSize + 34, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 34, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 36, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 36, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 27 && BoardSize < 28)
             {
-                Console.SetWindowSize(TitleSize + 37, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 37, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 39, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 39, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 28 && BoardSize < 29)
             {
-                Console.SetWindowSize(TitleSize + 40, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 40, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 42, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 42, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else if (BoardSize >= 29 && BoardSize < 30)
             {
-                Console.SetWindowSize(TitleSize + 43, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 43, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 45, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 45, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else
             {
-                Console.SetWindowSize(TitleSize + 46, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(TitleSize + 46, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(TitleSize + 48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(TitleSize + 48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
 
             Console.Clear();
