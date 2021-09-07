@@ -119,13 +119,13 @@ namespace Minesweeper
             SetBoardNeighbours(grid);
             if (BoardSize < 6)
             {
-                Console.SetWindowSize(48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize(48, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(Convert.ToInt32(BoardSize * 4), Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(Convert.ToInt32(BoardSize * 4), Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             else
             {
-                Console.SetWindowSize((BoardSize * 7) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
-                Console.SetBufferSize((BoardSize * 7) + 4, Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetWindowSize(Convert.ToInt32(BoardSize * 4), Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
+                Console.SetBufferSize(Convert.ToInt32(BoardSize * 4), Convert.ToInt32(Math.Round(BoardSize * 2.2) + 4));
             }
             Console.Clear();
 
